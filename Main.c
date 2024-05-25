@@ -82,3 +82,5 @@ void som(int cor) {
 
     return 0;
 }
+
+
