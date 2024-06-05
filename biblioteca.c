@@ -71,6 +71,7 @@ int main() {
 
     close_device(fd);
     return EXIT_SUCCESS;
-}
 
+    
+}
 
