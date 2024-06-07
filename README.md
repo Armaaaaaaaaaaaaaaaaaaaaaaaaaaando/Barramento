@@ -68,6 +68,42 @@ C é uma linguagem de programação de uso geral conhecida por sua concisão, co
 </div>
 
 
+<h4>Historia da GPU </h4>
+
+<p>
+  A GPU (Unidade de Processamento Gráfico) começou a existir no final das décadas de 1970 e início das décadas de 1980, quando os primeiros computadores pessoais começaram a ser produzidos. Naquela época, os gráficos eram processados principalmente pela CPU (Unidade de Processamento Central), o que tornou muito difícil gerar imagens em tempo real e jogos.
+
+No entanto, com o surgimento de jogos de computador e aplicações gráficas mais complexas, tornou-se evidente que o processamento gráfico requer hardware dedicado. A consequência disso foi a criação dos primeiros chips gráficos especializados, que posteriormente evoluíram para o que hoje chamamos de GPU.
+
+A série de chips gráficos da IBM, lançada em 1987, foi uma das primeiras GPUs notáveis. Em 1991, o S3 Graphics lançou uma das primeiras placas gráficas aceleradoras 2D. Mas a introdução da 3dfx Voodoo em 1996 realmente revolucionou o mercado de placas de vídeo, oferecendo aos jogadores de PC gráficos 3D acelerados por hardware.
+
+No período subsequente, empresas como NVIDIA e ATI – que posteriormente foi adquirida pela AMD – entraram no mercado com suas próprias soluções de GPU, lutando para fornecer o melhor desempenho e qualidade gráfica possível. 
+
+
+</p>
+</div>
+
+
+<h4>GPU </h4>
+<p>
+ As GPUs são componentes essenciais em computadores, encarregadas do processamento de imagens. Com hardware especializado, elas lidam tanto com imagens 2D quanto 3D, realizando operações como cálculo de geometria, mapeamento de texturas e transformação de pixels.
+
+No contexto dos jogos e aplicativos, as imagens 3D são geradas através de gráficos vetoriais. A GPU utiliza coordenadas (vértices) para formar polígonos que compõem a cena, aplicando texturas, iluminação e outros detalhes.
+
+Após calcular a cena no espaço virtual, a GPU realiza a rasterização, convertendo-a em dados de pixels. Essas informações são então enviadas aos monitores, exibindo a imagem final. Esse ciclo se repete várias vezes por segundo, permitindo uma visualização fluida e dinâmica.
+
+
+</p>
+</div>
+
+<h4>Barrramento </h4>
+<p>
+ Um barramento, em termos simplificados, é um canal de comunicação que facilita a interação entre o hardware e o software de um sistema computacional. No âmbito deste projeto, o objetivo central é estabelecer um barramento com a finalidade de viabilizar a comunicação entre uma biblioteca em modo de usuário e um driver no modo de kernel. Nesse contexto, a compreensão do conceito de barramento se revelou crucial para o desenvolvimento efetivo deste projeto.
+
+</p>
+</div>
+
+
 
 
 
@@ -75,6 +111,7 @@ C é uma linguagem de programação de uso geral conhecida por sua concisão, co
 <h2>Referências</h2>
 
 KERNIGHAN, Brian; RITCHIE, Dennis. The C programming language. 2nd ed. Prentice Hall, 1983.
+https://www.meupositivo.com.br/doseujeito/tecnologia/o-que-e-placa-de-video-gpu/ (tem que formatar)
 
 
 
