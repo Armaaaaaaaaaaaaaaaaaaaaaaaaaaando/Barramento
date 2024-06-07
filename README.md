@@ -60,11 +60,41 @@ A DE1-SoC é uma plataforma de desenvolvimento integrando um processador dual-co
 C é uma linguagem de programação de uso geral conhecida por sua concisão, controle de fluxo moderno, estruturas de dados eficientes e ampla gama de operadores. Embora não seja uma linguagem de "altíssimo nível" nem "extensa", e não seja especializada em nenhuma área específica, sua flexibilidade e generalidade a tornam mais prática e eficaz para diversas tarefas em comparação com linguagens consideradas mais avançadas (KERNIGHAN & RITCHIE, 1983, pag. 8).
 </p>
 
-<h4>Monitor CRT</h4>
-
+<h4>Monitores</h4>
 <p>
-  ...
+Dois monitores foram utilizados para os testes e desenvolvimento: um monitor do tipo "Cathode Ray Tube" (CRT) e outro do tipo "Liquid Crystal Display" (LCD). Ambos apresentam conexão VGA e foram conectados, de acordo com a disponibilidade do equipamento no laboratório, ao kit de desenvolvimento DE1-SoC para verificar se a interação do hardware com o driver desenvolvido estaria ocorrendo de maneira satisfatória.
 </p>
+
+<p align="center">
+  <img src = "https://github.com/Armaaaaaaaaaaaaaaaaaaaaaaaaaaando/Barramento/assets/129075181/a93c589a-7af7-450c-bebc-3afdfcb17657" width = "450px"/>
+  <p align="center">
+    <strong>Monitor CRT Dell</strong> 
+  </p>
+</p>
+
+<p align="center">
+  <img src = "https://github.com/Armaaaaaaaaaaaaaaaaaaaaaaaaaaando/Barramento/assets/129075181/53bacef8-4206-4f67-9757-bb5f96c66239" width = "450px"/>
+  <p align="center">
+    <strong>Monitor LCD Philips</strong> 
+  </p>
+</p>
+
+<h4>Vscode</h4>
+<p>
+  O Visual Studio Code é um editor de código-fonte desenvolvido pela Microsoft para Windows, Linux e macOS. Foi utilizado no projeto como ambiente de desenvolvimento para codificar o driver e biblioteca.
+</p>
+
+<h4>Compilador</h4>
+<p>
+O Compilador GNU, também conhecido como GCC, é uma ferramenta de código aberto desenvolvida pelo Projeto GNU. Ele suporta várias linguagens de programação e é altamente portátil, funcionando em uma ampla variedade de sistemas operacionais. O GCC oferece opções avançadas de otimização e é amplamente utilizado tanto no desenvolvimento de software de código aberto quanto comercial. Sua capacidade de gerar código otimizado para diferentes arquiteturas o torna uma escolha popular entre os desenvolvedores. 
+</p>
+
+<h2>Arquitetura do kit de desenvolvimento DE1-SoC</h2>
+<p>
+Na presente seção serão apresentados os periféricos utilizados no kit de desenvolvimento para a realização do projeto, com o objetivo de compreensão da arquitetura geral utilizada e sua importância em cada etapa.
+</p>
+
+
 </div>
 
 
