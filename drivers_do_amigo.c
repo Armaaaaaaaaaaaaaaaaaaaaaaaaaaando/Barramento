@@ -97,12 +97,11 @@ static ssize_t dev_read(struct file* filep, char* buffer, size_t len, loff_t* of
 // Função chamada quando o dispositivo é escrito
 static ssize_t dev_write(struct file* file, const char* buffer_user, size_t buffer_bytes, loff_t* curs) {
     pr_info("%s: escrevendo!\n", DEVICE_NAME);
-
+    memset(mensagem_principal,0,sizeof(mensagem_principal));
     // Enquanto FIFO estiver cheia, espera
     while (*wrfull_ptr) {}
-    
     ret = copy_from_user(mensagem_principal, buffer_user, buffer_bytes);        
-
+    printk(KERN_INFO "mensagemp %s, buffer user %s\n", mensagem_principal, buffer_user);
     // Caso ret seja diferente de 0, retorna bytes que não foram copiados
     if (ret) {
         pr_err("%s: falha ao ler a mensagem do usuario \n", DEVICE_NAME);
@@ -114,7 +113,6 @@ static ssize_t dev_write(struct file* file, const char* buffer_user, size_t buff
 
     // Separa os inteiros da mensagem principal
     separarInteiros(mensagem_principal, &data_a, &data_b);
-
     // Envia instruções para as FIFO's
     *DATA_A_PTR = data_a;
     *DATA_B_PTR = data_b;
