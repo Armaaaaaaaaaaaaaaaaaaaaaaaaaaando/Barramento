@@ -129,7 +129,7 @@ O Compilador GNU, também conhecido como GCC, é uma ferramenta de código abert
 <h2>Desenvolvimento do módulo do kernel</h2>
 
 <p>
-Um módulo do kernel é um componente de software do núcleo (kernel) de um sistema operacional que pode ser carregado dinamicamente durante a execução do sistema. Ele adiciona funcionalidades específicas ao kernel, como suporte a dispositivos, sistemas de arquivos, protocolos de rede, entre outros recursos. Os módulos do kernel permitem que o sistema operacional seja expandido e personalizado sem a necessidade de recompilar o kernel inteiro, facilitando a adição ou remoção de funcionalidades conforme necessário. O módulo desenvolvido no projeto visa comunicar-se com o processador gráfico presente na FPGA, de modo que realize as tarefas enviadas do espaço do usuário.
+  O módulo desenvolvido no projeto visa comunicar-se com o processador gráfico presente na FPGA, de modo que realize as tarefas enviadas do espaço do usuário.
 </p>
 <h4>Desenvolvimento</h4>
 <p>
