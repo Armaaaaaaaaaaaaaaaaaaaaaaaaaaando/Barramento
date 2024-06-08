@@ -39,16 +39,39 @@ Este projeto tem como objetivo desenvolver módulos do kernel para estabelecer a
 
 <h2>Sumário</h2>
 
+<div id= "fundamentacao">
+<h2>Fundamentação teórica</h2>
+<p>
+  Nesta seção será apresentado alguns conceitos teóricos básicos para compreensão do projeto.
+</p>
+
+<h4>Espaço do usuário ou "userspace"</h4>
+<p>
+O userspace, ou espaço do usuário, refere-se à parte do sistema operacional onde os aplicativos e processos de usuário são executados. É uma área separada do kernel do sistema operacional, que gerencia recursos de hardware e fornece serviços fundamentais para os aplicativos. No userspace, os programas têm acesso limitado aos recursos do sistema e são executados em um ambiente mais controlado, o que ajuda a garantir a estabilidade e segurança do sistema como um todo. O userspace é onde a maioria das interações diretas dos usuários com o sistema ocorre, através de aplicativos de software, enquanto o kernel cuida das operações mais fundamentais e de baixo nível do sistema.
+</p>
+
+<h4>Kernel</h4>
+<p>
+  O kernel é o núcleo do sistema operacional, responsável por gerenciar recursos de hardware e fornecer serviços essenciais para os aplicativos. Ele atua como intermediário entre o hardware e o software, controlando acesso à memória, processadores, dispositivos e sistemas de arquivos. Existem diferentes tipos de kernels, incluindo monolítico, microkernel e híbrido, cada um com abordagens distintas de design. O kernel é crucial para a estabilidade, segurança e desempenho do sistema operacional. Sua operação eficiente é essencial para garantir o funcionamento adequado do sistema como um todo.
+</p>
+
+<h4>Processador gráfico ou GPU</h4>
+<p>Um processador gráfico, ou GPU (Graphics Processing Unit), é um componente especializado projetado para lidar com tarefas gráficas intensivas em computadores e dispositivos eletrônicos. Ele executa operações como renderização de imagens 2D e 3D, processamento de vídeo e cálculos matriciais com eficiência. As GPUs são compostas por vários núcleos de processamento paralelo, o que permite uma execução rápida de operações gráficas complexas. Elas desempenham um papel crucial em jogos, design gráfico, computação científica e outras áreas que requerem processamento gráfico avançado. Sua arquitetura altamente paralela as torna ideais para lidar com grandes volumes de dados de forma eficiente.</p>
+
+<h4>Processador de propósito geral</h4>
+<p>Um processador de propósito geral, conhecido como CPU, é um componente vital em computadores e dispositivos eletrônicos, responsável por executar uma ampla gama de tarefas de propósito geral. Desde o processamento de texto até a execução de aplicativos complexos, a CPU lida com instruções de software, executa cálculos matemáticos e controla o fluxo de dados. Diferentemente de uma GPU, otimizada para operações gráficas, a CPU é projetada para lidar com diversas atividades, garantindo a versatilidade e flexibilidade do dispositivo. Sua arquitetura inclui unidades de processamento, cache de memória e controladores de barramento, desempenhando um papel crucial no funcionamento de computadores modernos.</p>
+
+</div>
 <div id = "componentes">
 <h2>Componentes, ferramentas e softwares utilizados</h2>
 
 <h4>Placa de Desenvolvimento DE1-SoC</h4>
 
 <p>
-A DE1-SoC é uma plataforma de desenvolvimento integrando um processador dual-core ARM Cortex-A9 com um FPGA Cyclone V da Intel. Com uma variedade de periféricos como display de 7 segmentos, porta Ethernet, USB, porta de áudio, entre outros, é ideal para projetos que demandam integração entre software e hardware.
+A DE1-SoC da Altera integra um sistema de processador rígido (HPS) baseado em ARM, composto pelo processador Dual-core ARM Cortex-A9, periféricos e interfaces de memória interligados perfeitamente com a estrutura FPGA através de uma espinha dorsal de interconexão de alta largura de banda. A placa de desenvolvimento DE1-SoC vem com memória DDR3 de alta velocidade, recursos de vídeo e áudio, conectividade Ethernet e muito mais, oferecendo inúmeras aplicações.
 </p>
 <p align="center">
-  <img src = "https://github.com/Armaaaaaaaaaaaaaaaaaaaaaaaaaaando/Barramento/assets/129075181/fab1cc1e-9c36-48e1-81e5-ae7fd73da53e" width = "450px"/>
+  <img src = "https://github.com/Armaaaaaaaaaaaaaaaaaaaaaaaaaaando/Barramento/assets/129075181/a012967b-6624-4b1f-a59d-741b56e773cd" width = "450px"/>
   <p align="center">
     <strong>Kit de desenvolvimento DE1-SoC</strong> 
   </p>
@@ -89,11 +112,29 @@ Dois monitores foram utilizados para os testes e desenvolvimento: um monitor do 
 O Compilador GNU, também conhecido como GCC, é uma ferramenta de código aberto desenvolvida pelo Projeto GNU. Ele suporta várias linguagens de programação e é altamente portátil, funcionando em uma ampla variedade de sistemas operacionais. O GCC oferece opções avançadas de otimização e é amplamente utilizado tanto no desenvolvimento de software de código aberto quanto comercial. Sua capacidade de gerar código otimizado para diferentes arquiteturas o torna uma escolha popular entre os desenvolvedores. 
 </p>
 
-<h2>Arquitetura do kit de desenvolvimento DE1-SoC</h2>
-<p>
-Na presente seção serão apresentados os periféricos utilizados no kit de desenvolvimento para a realização do projeto, com o objetivo de compreensão da arquitetura geral utilizada e sua importância em cada etapa.
+<h4>Processador gráfico</h4>
+<p>O Processador Gráfico, desenvolvido pelo estudante Gabriel Sá Barreto Alves, é responsável por gerenciar o processo de renderização da imagem e executar um conjunto de instruções que permitem inicialmente inserir sprites, além de modificar o layout do background da tela e renderizar polígonos do tipo quadrado e triângulo. A GPU atua em conjunto com um processador de propósito geral, que para este projeto é o Dual-core ARM Cortex-A9 presente no kit, duas FIFOs (First In, First Out) e uma PLL (Phase Locked Loop), em resumo.</p>
+
+<p align="center">
+  <img src = "https://github.com/Armaaaaaaaaaaaaaaaaaaaaaaaaaaando/Barramento/assets/129075181/591de9f8-4a37-4d81-8051-57e107099bac" width = "450px"/>
+  <p align="center">
+    <strong>Diagrama da estrutura interna do processador gráfico</strong> 
+  </p>
 </p>
 
+</div>
+
+<div id= "driver">
+
+<h2>Desenvolvimento do módulo do kernel</h2>
+
+<p>
+Um módulo do kernel é um componente de software do núcleo (kernel) de um sistema operacional que pode ser carregado dinamicamente durante a execução do sistema. Ele adiciona funcionalidades específicas ao kernel, como suporte a dispositivos, sistemas de arquivos, protocolos de rede, entre outros recursos. Os módulos do kernel permitem que o sistema operacional seja expandido e personalizado sem a necessidade de recompilar o kernel inteiro, facilitando a adição ou remoção de funcionalidades conforme necessário. O módulo desenvolvido no projeto visa comunicar-se com o processador gráfico presente na FPGA, de modo que realize as tarefas enviadas do espaço do usuário.
+</p>
+<h4>Desenvolvimento</h4>
+<p>
+  A primeira etapa para desenvolver o módulo,  foi pesquisar e analisar qual seria sua estrutura básica
+</p>
 
 </div>
 
@@ -108,7 +149,6 @@ No entanto, com o surgimento de jogos de computador e aplicações gráficas mai
 A série de chips gráficos da IBM, lançada em 1987, foi uma das primeiras GPUs notáveis. Em 1991, o S3 Graphics lançou uma das primeiras placas gráficas aceleradoras 2D. Mas a introdução da 3dfx Voodoo em 1996 realmente revolucionou o mercado de placas de vídeo, oferecendo aos jogadores de PC gráficos 3D acelerados por hardware.
 
 No período subsequente, empresas como NVIDIA e ATI – que posteriormente foi adquirida pela AMD – entraram no mercado com suas próprias soluções de GPU, lutando para fornecer o melhor desempenho e qualidade gráfica possível. 
-
 
 </p>
 </div>
@@ -140,8 +180,16 @@ Após calcular a cena no espaço virtual, a GPU realiza a rasterização, conver
 
 <h2>Referências</h2>
 
-KERNIGHAN, Brian; RITCHIE, Dennis. The C programming language. 2nd ed. Prentice Hall, 1983.
-https://www.meupositivo.com.br/doseujeito/tecnologia/o-que-e-placa-de-video-gpu/ (tem que formatar)
+<p>
+  KERNIGHAN, Brian; RITCHIE, Dennis. The C programming language. 2nd ed. Prentice Hall, 1983.
+</p>
+<p>
+  https://www.meupositivo.com.br/doseujeito/tecnologia/o-que-e-placa-de-video-gpu/ (tem que formatar)
+</p>
+<p>
+  ALVES, Gabriel Sá B.; DIAS, Anfranserai M.; SARINHO, Victor T.. Development of a Sprite-Based Architecture for Creating 2D Games in Reconfigurable Environments Using FPGA Devices. In: TRILHA DE COMPUTAÇÃO – ARTIGOS CURTOS - SIMPÓSIO BRASILEIRO DE JOGOS E ENTRETENIMENTO DIGITAL (SBGAMES), 21. , 2022, Natal/RN. Anais [...]. Porto Alegre: Sociedade Brasileira de Computação, 2022 . p. 283-288.
+</p>
+
 
 
 
