@@ -63,6 +63,7 @@ int verificar_cor(int vermelho, int verde, int azul){
         perror("Valor de cor fora dos limites");
         return 0; //    
     }
+    return 1;
 }
 
 int verificar_cordenadas(int x, int y){
@@ -70,6 +71,7 @@ int verificar_cordenadas(int x, int y){
         perror("Coodernadas fora dos limites");
         return 0;
     }
+    return 1;
 }
 
 int verificar_tamanho(int tamanho){
@@ -77,6 +79,7 @@ int verificar_tamanho(int tamanho){
         perror("Tamanho fora dos limites");
         return 0;
     }
+    return 1;
 }
 
 int verificar_sprite(int sprite){
@@ -84,6 +87,7 @@ int verificar_sprite(int sprite){
         perror("Número do sprite fora dos limite");
         return 0; //   
     }
+    return 1;
 }
 
 int verificar_registrador(int registrador){
@@ -91,6 +95,7 @@ int verificar_registrador(int registrador){
         perror("Registrador fora dos limites");
         return 0; //   
     }
+    return 1;
 }
 
 int verificar_bloco(int bloco){
@@ -98,6 +103,7 @@ int verificar_bloco(int bloco){
         perror("Bloco fora dos limites");
         return 0; //   
     }
+    return 1;
 }
 
 int verificar_endereco(int endereco){
@@ -105,6 +111,7 @@ int verificar_endereco(int endereco){
         perror("Endereço fora dos limites");
         return 0; //   
     }
+    return 1;
 }
 
 
@@ -157,21 +164,7 @@ void print_triangulo(int fd, uint32_t* DATA_A_ptr, uint32_t* DATA_B_ptr, int end
     escrever_no_arquivo(fd, DATA_A_ptr, DATA_B_ptr, informacao);
     return 1; // printou
 }
-/*
-// Função para configurar e imprimir um polígono
-void print_poligono(int fd, uint32_t* DATA_A_ptr, uint32_t* DATA_B_ptr, int endereco, int x, int y, int tamanho, int vermelho, int verde, int azul, int forma, int opcode) {
-    char informacao[512];
-    if(!verificar_cor(vermelho, verde, azul)) return 0;
-    if(!verificar_cordenadas(x, y)) return 0;
-    if(!verificar_registrador(endereco)) return 0;
-    if(!verificar_tamanho(tamanho)) return 0;
-    *DATA_A_ptr = endereco << 4 | opcode; // Configura o valor de DATA_A
-    *DATA_B_ptr = (forma << 31) | (azul << 28) | (verde << 25) | (vermelho << 22) | (tamanho << 18) | (y << 9) | x; // Configura o valor de DATA_B
-    snprintf(informacao, 512, "%ud%u", *DATA_A_ptr, *DATA_B_ptr);
-    escrever_no_arquivo(fd, DATA_A_ptr, DATA_B_ptr, informacao);
-    return 1; // printou
-}
-*/
+
 // Função para configurar e imprimir um sprite
 void print_sprite(int fd, uint32_t* DATA_A_ptr, uint32_t* DATA_B_ptr, uint32_t ativar_sprite, int x, int y, int sprite, int registrador) {
     char informacao[512];
@@ -200,7 +193,7 @@ void escrever_no_arquivo(int fd, uint32_t* dataA, uint32_t* dataB, char* informa
     // Formata a string com os dois inteiros e o separador
     // Salva a string formatada em uma variável
     // Tenta escrever a mensagem no dispositivo
-    if (write_device(fd, *informacao) < 0) {
+    if (write_device(fd, informacao) < 0) {
         close_device(fd); // Fecha o dispositivo se falhar
         return EXIT_FAILURE;
     }
