@@ -100,13 +100,6 @@ int verificar_bloco(int bloco){
     }
 }
 
-int verificar_bloco(int bloco){
-    if(bloco > 4799 | bloco < 0){
-        perror("Bloco fora dos limites");
-        return 0; //   
-    }
-}
-
 int verificar_endereco(int endereco){
         if(endereco > 12799 | endereco < 0){
         perror("Endereço fora dos limites");
