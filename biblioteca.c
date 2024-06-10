@@ -93,6 +93,26 @@ int verificar_registrador(int registrador){
     }
 }
 
+int verificar_bloco(int bloco){
+    if(bloco > 4799 | bloco < 0){
+        perror("Bloco fora dos limites");
+        return 0; //   
+    }
+}
+
+
+int editar_bloco_background(int fd, uint32_t* DATA_A_ptr, uint32_t* DATA_B_ptr, int x, int y, int vermelho, int verde, int azul){
+    char informacao[512];
+    int numero_bloco = y * 80 + x;
+    if(!verificar_cor(vermelho, verde, azul)) return 0;
+    if(!verificar_cordenadas(x, y)) return 0;
+    if(!verificar_bloco(numero_bloco)) return 0;
+    *DATA_A_ptr = (numero_bloco << 4) | 0b0010;
+    *DATA_B_ptr = (azul << 6) | (verde << 3) | vermelho;
+    snprintf(informacao, 512, "%ud%u", *DATA_A_ptr, *DATA_B_ptr);
+    escrever_no_arquivo(fd, DATA_A_ptr, DATA_B_ptr, informacao);
+    return 1; // printou
+}
 
 int print_quadrado(int fd, uint32_t* DATA_A_ptr, uint32_t* DATA_B_ptr, int endereco, int x, int y, int tamanho, int vermelho, int verde, int azul){
     char informacao[512];
