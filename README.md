@@ -55,6 +55,21 @@ O userspace, ou espaço do usuário, refere-se à parte do sistema operacional o
   O kernel é o núcleo do sistema operacional, responsável por gerenciar recursos de hardware e fornecer serviços essenciais para os aplicativos. Ele atua como intermediário entre o hardware e o software, controlando acesso à memória, processadores, dispositivos e sistemas de arquivos. Existem diferentes tipos de kernels, incluindo monolítico, microkernel e híbrido, cada um com abordagens distintas de design. O kernel é crucial para a estabilidade, segurança e desempenho do sistema operacional. Sua operação eficiente é essencial para garantir o funcionamento adequado do sistema como um todo.
 </p>
 
+<h4>Módulo do kernel</h4>
+<p>
+  No Linux, um módulo do kernel é um pedaço de código que pode ser carregado e descarregado no kernel dinamicamente. Isso permite que funcionalidades sejam adicionadas ao kernel sem a necessidade de recompilar ou reiniciar o sistema.
+</p>
+
+<h4>Device numbers ou major e minor numbers</h4>
+<p>
+  No UNIX, existem dois principais tipos de números de dispositivos, sendo eles o “major number” e “minor number”. Estes números são basicamente identificadores, onde o “major number” identifica o tipo de dispositivo e, na maioria dos casos, o tipo de driver que vai lidar com o dispositivo, enquanto o “minor number” identifica o dispositivo, funcionando como um identificador único. Eles são usados para ajudar o kernel a direcionar operações de E/S para os drivers de dispositivos corretos. Esses números são parte integrante da maneira como o sistema lida com dispositivos de hardware.
+</p>
+
+<h4>Device files ou arquivos de dispositivos</h4>
+<p>
+Os arquivos de dispositivos são conhecidos como arquivos especiais. Eles representam a principal "ponte" de comunicação entre o driver de dispositivo e o espaço do usuário. Uma vez acessados através de funções de entrada e saída (como open, write, etc.), o sistema operacional gerencia a conexão com o hardware associado ao dispositivo.
+</p>
+
 <h4>Processador gráfico ou GPU</h4>
 <p>Um processador gráfico, ou GPU (Graphics Processing Unit), é um componente especializado projetado para lidar com tarefas gráficas intensivas em computadores e dispositivos eletrônicos. Ele executa operações como renderização de imagens 2D e 3D, processamento de vídeo e cálculos matriciais com eficiência. As GPUs são compostas por vários núcleos de processamento paralelo, o que permite uma execução rápida de operações gráficas complexas. Elas desempenham um papel crucial em jogos, design gráfico, computação científica e outras áreas que requerem processamento gráfico avançado. Sua arquitetura altamente paralela as torna ideais para lidar com grandes volumes de dados de forma eficiente.</p>
 
@@ -112,6 +127,7 @@ Dois monitores foram utilizados para os testes e desenvolvimento: um monitor do 
 O Compilador GNU, também conhecido como GCC, é uma ferramenta de código aberto desenvolvida pelo Projeto GNU. Ele suporta várias linguagens de programação e é altamente portátil, funcionando em uma ampla variedade de sistemas operacionais. O GCC oferece opções avançadas de otimização e é amplamente utilizado tanto no desenvolvimento de software de código aberto quanto comercial. Sua capacidade de gerar código otimizado para diferentes arquiteturas o torna uma escolha popular entre os desenvolvedores. 
 </p>
 
+
 <h4>Processador gráfico</h4>
 <p>O Processador Gráfico, desenvolvido pelo estudante Gabriel Sá Barreto Alves, é responsável por gerenciar o processo de renderização da imagem e executar um conjunto de instruções que permitem inicialmente inserir sprites, além de modificar o layout do background da tela e renderizar polígonos do tipo quadrado e triângulo. A GPU atua em conjunto com um processador de propósito geral, que para este projeto é o Dual-core ARM Cortex-A9 presente no kit, duas FIFOs (First In, First Out) e uma PLL (Phase Locked Loop), em resumo.</p>
 
@@ -126,18 +142,50 @@ O Compilador GNU, também conhecido como GCC, é uma ferramenta de código abert
 
 <div id= "driver">
 
-<h2>Desenvolvimento do módulo do kernel</h2>
+<h2>Desenvolvimento do módulo kernel</h2>
 
 <p>
   O módulo desenvolvido no projeto visa comunicar-se com o processador gráfico presente na FPGA, de modo que realize as tarefas enviadas do espaço do usuário.
 </p>
-<h4>Desenvolvimento</h4>
-<p>
-  A primeira etapa para desenvolver o módulo,  foi pesquisar e analisar qual seria sua estrutura básica
+<h3>Funções</h3>
+
+<p>A primeira etapa para desenvolver o módulo do kernel foi pesquisar e analisar qual seria sua estrutura básica. Após a pesquisa, descobriu-se que um módulo geralmente precisa apresentar funções básicas de entrada, que irão se comunicar com o arquivo responsável por estabelecer a comunicação entre o espaço do usuário e o hardware. Alguns desses métodos incluem: write, open, close, etc. Essas funções permitirão o envio de instruções para a GPU e vice-versa, por meio de mapeamento de memória, que será melhor detalhado posteriormente. Segue abaixo um resumo do papel de cada função do driver:
 </p>
+
+<h4>dev_open</h4>
+<p>A função “dev_open” é chamada quando o dispositivo associado ao módulo é aberto. Esta função não realiza muitas operações, mas registra uma mensagem no log do kernel indicando que o dispositivo foi aberto com sucesso. Esta operação ajuda a monitorar e depurar o uso do dispositivo, confirmando que a abertura foi registrada pelo sistema.
+
+<h4>dev_realese</h4>
+<p>A função “dev_release” é chamada quando o dispositivo é fechado. Semelhante à “dev_open”, esta função registra uma mensagem no log do kernel indicando que o dispositivo foi fechado com sucesso.
+</p>
+
+<h4>dev_read</h4>
+<p>A função “dev_read” é responsável por ler dados do dispositivo e copiá-los para o espaço do usuário. Quando chamada, ela calcula quantos bytes ainda não foram lidos da mensagem armazenada em “mensagem_principal” e copia esses bytes para o buffer do usuário. Se a cópia for bem-sucedida, a função atualiza o offset para refletir a nova posição de leitura e retorna o número de bytes lidos. Se ocorrer um erro durante a cópia, a função retorna um código de erro.
+</p>
+
+<h4>dev_write</h4>
+<p>A função “dev_write” é chamada quando dados são escritos no dispositivo a partir do espaço do usuário. Ela começa limpando o buffer “mensagem_principal” e então copia os dados do novo buffer para a mesma variável. Em seguida, a função separa dois inteiros da string recebida usando a função “separarInteiros” e envia esses inteiros via mapeamento de memória para os ponteiros que apontam para os endereços das FIFOS da GPU (“DATA_A_PTR” e “DATA_B_PTR”). Após isso, a função sinaliza o início da escrita, que ocorre de acordo com os valores dos registradores “START_PTR”, que funciona como uma espécie de clock, e “wrfull_ptr”, que guarda o status do estado da fila. Se a cópia dos dados do usuário falhar, a função retorna um código de erro.
+</p>
+
+<h4>separarInteiros</h4>
+<p>A função separarInteiros é uma função auxiliar que processa uma string para extrair dois inteiros separados. Ela percorre a string caractere por caractere, acumulando o valor numérico até encontrar o delimitador 'd'. Após o delimitador, a função continua acumulando o segundo inteiro. Esses inteiros são então utilizados na formação das instruções para GPU.
+</p>
+
+<h4>ModuleInit e ModuleExit</h4>
+<p>O módulo também precisa conter blocos de código que realizam operações quando o módulo é carregado e descarregado do sistema. No projeto, a função responsável pelo processo de inicialização do módulo é nomeada como “ModuleInit”. Ela é responsável por registrar o “major number” e “minor number” do módulo dinamicamente. Ao descarregar o módulo do sistema, a função “ModuleExit” é chamada, realizando o desregistro dos números de dispositivo associados ao módulo e, consequentemente, liberando os recursos que estavam sendo utilizados.</p>
+
+
+<h3>Mapeamento de memória </h3>
+//explicar sobre o mapeamento em dev_write 
+<h3>Arquivo de dispositivo</h3>
+//explicar sobre a criação do arquivo especial
 
 </div>
 
+<div id = "biblioteca">
+<h2>Desenvolvimento da biblioteca</h2>
+//explicar sobre a biblioteca
+</div>
 
 <h4>Historia da GPU </h4>
 
@@ -149,7 +197,6 @@ No entanto, com o surgimento de jogos de computador e aplicações gráficas mai
 A série de chips gráficos da IBM, lançada em 1987, foi uma das primeiras GPUs notáveis. Em 1991, o S3 Graphics lançou uma das primeiras placas gráficas aceleradoras 2D. Mas a introdução da 3dfx Voodoo em 1996 realmente revolucionou o mercado de placas de vídeo, oferecendo aos jogadores de PC gráficos 3D acelerados por hardware.
 
 No período subsequente, empresas como NVIDIA e ATI – que posteriormente foi adquirida pela AMD – entraram no mercado com suas próprias soluções de GPU, lutando para fornecer o melhor desempenho e qualidade gráfica possível. 
-
 </p>
 </div>
 
