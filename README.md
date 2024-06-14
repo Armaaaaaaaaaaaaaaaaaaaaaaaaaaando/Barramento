@@ -176,7 +176,45 @@ O Compilador GNU, também conhecido como GCC, é uma ferramenta de código abert
 
 
 <h3>Mapeamento de memória </h3>
-//explicar sobre o mapeamento em dev_write 
+<p>
+  O processador ARM tem a possibilidade de se comunicar com a FPGA usando tanto a ponte HPS-to-FPGA quanto a ponte Lightweight HPS-to-FPGA. Essas pontes são designadas para áreas específicas na memória do HPS. Quando um componente na FPGA está conectado a uma dessas pontes, os registros que estão mapeados na memória ficam acessíveis para leitura e escrita pelo processador ARM, utilizando os endereços de memória correspondentes às pontes.
+</p>
+
+<p align="center">
+  <img src = "https://github.com/Armaaaaaaaaaaaaaaaaaaaaaaaaaaando/Barramento/assets/129075181/18ed440c-d28f-4e95-9e0a-e028415bf867" width = "450px"/>
+  <p align="center">
+    <strong>Diagrama de blocos das pontes AXI no contexto da estrutura FPGA e da interconexão L3 com a HPS.</strong> 
+  </p>
+</p>
+
+<p>
+  A ponte utilizada para permitir que o módulo do kernel desenvolvido possa ter acesso aos componentes da GPU foi a Lightweight HPS-to-FPGA. Através da função "ioremap", que é uma função de mapeamento de memória disponível para o desenvolvimento de códigos para módulos do kernel, tornou-se possível acessar a posição de memória correspondente ao início do endereço de memória da ponte. Para isso, foi necessário inicialmente obter informações sobre o endereço base físico da ponte e o tamanho, em bytes, que abrange esse espaço. Toda a informação necessária foi encontrada no arquivo "address_map_arm.h", o qual fornecia os valores de "LW_BRIDGE_BASE" (endereço base físico) e "LW_BRIDGE_SPAN" (quantidade de espaço em bytes).
+</p>
+
+<p>
+  No Linux, devido a questões de segurança, arquitetura ou gestão de recursos, não é possível ter acesso direto ao endereço físico de memória dos componentes mapeados nas regiões do espaço de memória do HPS. A função "ioremap", ao receber como parâmetro o endereço base físico e os bytes do endereço da ponte, retorna o endereço virtual, o qual pode ser manipulado para acessar a memória física correspondente, com a intermediação do sistema operacional e de alguns dispositivos de hardware que não veem ao caso.
+</p>
+
+<p>
+  Após esse processo, para acessar os componentes da GPU, segue-se um procedimento não muito diferente do passo anterior: adiciona-se um offset ao endereço virtual, permitindo assim o acesso a cada componente. Os exemplos a seguir esclarecem melhor o mapeamento.
+</p>
+
+<h4>Alguns exemplos de endereços:</h4>
+
+<p>LW_BRIDGE_BASE: 0xFF200000 (endereço físico base ponte)</p>
+<p>LW_BRIDGE_SPAN: 0x100 (quantidade em bytes que abrange o endereço)</p>
+<p>DATA_A: 0x80 (offset para a fila de instruções A)</p>
+<p>DATA_B: 0x70 (offset para a fila de instruções B)</p>
+<p>WRREG: 0xc0 (offset para o sinal de escrita na fila)</p>
+<p>WRFULL: 0xb0 (offset para o sinal de verificação da fila)</p>
+
+<h4>Exemplos de aplicações</h4>
+
+```C
+ LW_virtual = ioremap_nocache(LW_BRIDGE_BASE, LW_BRIDGE_SPAN); //mapeia e retorna o endereço virtual para LW_virtual
+ DATA_A_PTR = (volatile int *)(LW_virtual + DATA_A); //soma o offset ao endereço virtual para ter acesso a posição de memória da fila de instrução A da GPU.
+
+```
 <h3>Arquivo de dispositivo</h3>
 //explicar sobre a criação do arquivo especial
 
