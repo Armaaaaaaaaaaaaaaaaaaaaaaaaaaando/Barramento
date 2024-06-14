@@ -254,37 +254,37 @@ verificar_endereco(int endereco):
     Objetivo: Verificar se o endereço está dentro dos limites.
     Funcionalidade: Verifica se o endereço fornecido está dentro do intervalo permitido (0 a 12799).
 
-editar_sprite(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int endereco, int vermelho, int verde, int azul)**:
+editar_sprite(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int endereco, int vermelho, int verde, int azul):
 
     Objetivo: Editar as propriedades de um sprite.
     Funcionalidade: Configura os valores de DATA_A e DATA_B para editar as propriedades do sprite com os valores fornecidos e escreve no dispositivo.
 
-editar_bloco_background(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int x, int y, int vermelho, int verde, int azul)**:
+editar_bloco_background(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int x, int y, int vermelho, int verde, int azul):
 
     Objetivo: Editar as propriedades de um bloco de fundo.
     Funcionalidade: Configura os valores de DATA_A e DATA_B para editar as propriedades do bloco de fundo com os valores fornecidos e escreve no dispositivo.
 
-print_quadrado(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int endereco, int x, int y, int tamanho, int vermelho, int verde, int azul)**:
+print_quadrado(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int endereco, int x, int y, int tamanho, int vermelho, int verde, int azul):
 
     Objetivo: Desenhar um quadrado na tela.
     Funcionalidade: Configura os valores de DATA_A e DATA_B para desenhar um quadrado na tela com os valores fornecidos e escreve no dispositivo.
 
-print_triangulo(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int endereco, int x, int y, int tamanho, int vermelho, int verde, int azul)**:
+print_triangulo(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int endereco, int x, int y, int tamanho, int vermelho, int verde, int azul):
 
     Objetivo: Desenhar um triângulo na tela.
     Funcionalidade: Configura os valores de DATA_A e DATA_B para desenhar um triângulo na tela com os valores fornecidos e escreve no dispositivo.
 
-print_sprite(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, uint32_t ativar_sprite, int x, int y, int sprite, int registrador)**:
+print_sprite(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, uint32_t ativar_sprite, int x, int y, int sprite, int registrador):
 
     Objetivo: Configurar e imprimir um sprite.
     Funcionalidade: Configura os valores de DATA_A e DATA_B para configurar e imprimir um sprite na tela com os valores fornecidos e escreve no dispositivo.
 
-set_background(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int vermelho, int verde, int azul)**:
+set_background(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int vermelho, int verde, int azul):
 
     Objetivo: Definir a cor de fundo da tela.
     Funcionalidade: Configura os valores de DATA_A e DATA_B para definir a cor de fundo da tela com os valores fornecidos e escreve no dispositivo.
 
-escrever_no_arquivo(int fd, uint32_t dataA, uint32_t dataB, char* informacao)**:
+escrever_no_arquivo(int fd, uint32_t dataA, uint32_t dataB, char* informacao):
 
     Objetivo: Envia a string formatada contendo o data_A e data_B da função para o driver.
     Funcionalidade: Escreve a informação fornecida da instrução no arquivo associado ao descritor de arquivo fornecido.
