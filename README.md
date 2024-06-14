@@ -177,6 +177,9 @@ O Compilador GNU, também conhecido como GCC, é uma ferramenta de código abert
 
 <h3>Mapeamento de memória </h3>
 <p>
+  Para que fosse possível fazer com que o módulo de kernel desenvolvido fosse capaz de enviar instruções para GPU, foi preciso aplicar alguns conceitos de mapeamento de memória, que serão explicados ao decorrer desta seção.
+</p>
+<p>
   O processador ARM tem a possibilidade de se comunicar com a FPGA usando tanto a ponte HPS-to-FPGA quanto a ponte Lightweight HPS-to-FPGA. Essas pontes são designadas para áreas específicas na memória do HPS. Quando um componente na FPGA está conectado a uma dessas pontes, os registros que estão mapeados na memória ficam acessíveis para leitura e escrita pelo processador ARM, utilizando os endereços de memória correspondentes às pontes.
 </p>
 
