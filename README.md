@@ -191,6 +191,103 @@ No nosso processo de desenvolvimento da biblioteca, optamos por uma abordagem qu
 Definimos as instruções principais para configuram os valores de "DATA_A_ptr" e "DATA_B_ptr"`, configurados como ponteiros para inteiros de 32 bits ("uint32_t*"), com base nos parâmetros das instruções. Os valores dessas variáveis são definidos de acordo com a necessidade da instrução a partir do que estava documentado no documento da GPU. A lógica utilizada buscou tratar o "DATA_A_ptr" e "DATA_B_ptr" como registradores de 32 bits. Como cada bit geralmente possui um significado específico, foi necessário colocá-los na posição correta. Para isso, utilizamos lógica de movimentação de deslocamento com o operador OR. Basicamente, deslocamos os valores para a esquerda e, em seguida, utilizamos a operação OR para combinar esses valores com os bits existentes no registrador.
 
 Foi utilizado também funções de verificações de parâmetros para ajudar a prevenir erros decorrentes de valores fora dos limites esperados. Por exemplo, ao definir cores, coordenadas ou tamanhos, é crucial garantir que esses valores estejam dentro das especificações suportadas pela GPU, ou seja, evitando que essas entradas cheguem à GPU e causem problemas.
+
+<h3>Funções</h3>
+
+open_device(const char *device_path):
+
+    Objetivo: Abrir o arquivo contido na /dev/.
+    Funcionalidade: Tenta abrir o dispositivo especificado no modo de leitura e escrita. Retorna o descritor de arquivo (file descriptor) se bem-sucedido e -1 em caso de falha.
+
+write_device(int fd, const char *data):
+
+    Objetivo: Escreve os dados por abstração na /dev/.
+    Funcionalidade: Tenta escrever os dados fornecidos no dispositivo associado ao descritor de arquivo fornecido. Retorna o número de bytes escritos se bem-sucedido e -1 em caso de falha.
+
+read_device(int fd, char *buffer, size_t size):
+
+    Objetivo: Ler do dispositivo.
+    Funcionalidade: Tenta ler dados do dispositivo associado ao descritor de arquivo fornecido e os armazena no buffer fornecido. Retorna o número de bytes lidos se bem-sucedido e -1 em caso de falha.
+
+close_device(int fd):
+
+    Objetivo: Fechar o dispositivo.
+    Funcionalidade: Tenta fechar o dispositivo associado ao descritor de arquivo fornecido.
+
+verificar_cor(int vermelho, int verde, int azul):
+
+    Objetivo: Verificar se os valores RGB estão dentro dos limites.
+    Funcionalidade: Verifica se os valores de vermelho, verde e azul estão dentro do intervalo permitido (0 a 7).
+
+verificar_cordenadas(int x, int y):
+
+    Objetivo: Verificar se as coordenadas estão dentro dos limites da tela.
+    Funcionalidade: Verifica se as coordenadas x e y estão dentro dos limites da tela (0 a 639 para x e 0 a 479 para y).
+
+verificar_cordenadas_poligono(int x, int y):
+
+    Objetivo: Verificar se as coordenadas estão dentro dos limites do polígono.
+    Funcionalidade: Verifica se as coordenadas x e y estão dentro dos limites do polígono (0 a 511 para x e 0 a 479 para y).
+
+verificar_tamanho(int tamanho):
+
+    Objetivo: Verificar se o tamanho está dentro dos limites.
+    Funcionalidade: Verifica se o tamanho fornecido está dentro do intervalo permitido (0 a 15).
+
+verificar_sprite(int sprite):
+
+    Objetivo: Verificar se o número do sprite está dentro dos limites.
+    Funcionalidade: Verifica se o número do sprite fornecido está dentro do intervalo permitido (0 a 31).
+
+verificar_registrador(int registrador):
+
+    Objetivo: Verificar se o número do registrador está dentro dos limites.
+    Funcionalidade: Verifica se o número do registrador fornecido está dentro do intervalo permitido (1 a 31).
+
+verificar_bloco(int bloco):
+
+    Objetivo: Verificar se o número do bloco está dentro dos limites.
+    Funcionalidade: Verifica se o número do bloco fornecido está dentro do intervalo permitido (0 a 4799).
+
+verificar_endereco(int endereco):
+
+    Objetivo: Verificar se o endereço está dentro dos limites.
+    Funcionalidade: Verifica se o endereço fornecido está dentro do intervalo permitido (0 a 12799).
+
+editar_sprite(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int endereco, int vermelho, int verde, int azul)**:
+
+    Objetivo: Editar as propriedades de um sprite.
+    Funcionalidade: Configura os valores de DATA_A e DATA_B para editar as propriedades do sprite com os valores fornecidos e escreve no dispositivo.
+
+editar_bloco_background(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int x, int y, int vermelho, int verde, int azul)**:
+
+    Objetivo: Editar as propriedades de um bloco de fundo.
+    Funcionalidade: Configura os valores de DATA_A e DATA_B para editar as propriedades do bloco de fundo com os valores fornecidos e escreve no dispositivo.
+
+print_quadrado(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int endereco, int x, int y, int tamanho, int vermelho, int verde, int azul)**:
+
+    Objetivo: Desenhar um quadrado na tela.
+    Funcionalidade: Configura os valores de DATA_A e DATA_B para desenhar um quadrado na tela com os valores fornecidos e escreve no dispositivo.
+
+print_triangulo(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int endereco, int x, int y, int tamanho, int vermelho, int verde, int azul)**:
+
+    Objetivo: Desenhar um triângulo na tela.
+    Funcionalidade: Configura os valores de DATA_A e DATA_B para desenhar um triângulo na tela com os valores fornecidos e escreve no dispositivo.
+
+print_sprite(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, uint32_t ativar_sprite, int x, int y, int sprite, int registrador)**:
+
+    Objetivo: Configurar e imprimir um sprite.
+    Funcionalidade: Configura os valores de DATA_A e DATA_B para configurar e imprimir um sprite na tela com os valores fornecidos e escreve no dispositivo.
+
+set_background(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int vermelho, int verde, int azul)**:
+
+    Objetivo: Definir a cor de fundo da tela.
+    Funcionalidade: Configura os valores de DATA_A e DATA_B para definir a cor de fundo da tela com os valores fornecidos e escreve no dispositivo.
+
+escrever_no_arquivo(int fd, uint32_t dataA, uint32_t dataB, char* informacao)**:
+
+    Objetivo: Envia a string formatada contendo o data_A e data_B da função para o driver.
+    Funcionalidade: Escreve a informação fornecida da instrução no arquivo associado ao descritor de arquivo fornecido.
 </p>
 </div>
 
