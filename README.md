@@ -155,7 +155,7 @@ O Compilador GNU, também conhecido como GCC, é uma ferramenta de código abert
 <h4>dev_open</h4>
 <p>A função “dev_open” é chamada quando o dispositivo associado ao módulo é aberto. Esta função não realiza muitas operações, mas registra uma mensagem no log do kernel indicando que o dispositivo foi aberto com sucesso. Esta operação ajuda a monitorar e depurar o uso do dispositivo, confirmando que a abertura foi registrada pelo sistema.
 
-<h4>dev_realese</h4>
+<h4>dev_release</h4>
 <p>A função “dev_release” é chamada quando o dispositivo é fechado. Semelhante à “dev_open”, esta função registra uma mensagem no log do kernel indicando que o dispositivo foi fechado com sucesso.
 </p>
 
@@ -184,7 +184,14 @@ O Compilador GNU, também conhecido como GCC, é uma ferramenta de código abert
 
 <div id = "biblioteca">
 <h2>Desenvolvimento da biblioteca</h2>
-//explicar sobre a biblioteca
+<p>Desenvolvemos as instruções presentes na biblioteca com base em informações detalhadas obtidas na documentação do dispositivo. Ao verificarmos a documentação fornecida, pudemos entender os protocolos necessários para interagir com o dispositivo gráfico a partir das instruções.
+
+No nosso processo de desenvolvimento da biblioteca, optamos por uma abordagem que inicialmente não utilizava parâmetros de arquivo em nossas funções. Isso se deve ao fato de termos implementado um mapeamento direto para o dispositivo de hardware. Essencialmente, isso significava que estávamos lidando diretamente com o dispositivo em si, sem a necessidade de especificar arquivos específicos em nossas chamadas de função. Após desenvolvermos e testarmos o mapeamento direto com sucesso, transferimos a responsabilidade de lidar com os arquivos para o driver do dispositivo.
+
+Definimos as instruções principais para configuram os valores de "DATA_A_ptr" e "DATA_B_ptr"`, configurados como ponteiros para inteiros de 32 bits ("uint32_t*"), com base nos parâmetros das instruções. Os valores dessas variáveis são definidos de acordo com a necessidade da instrução a partir do que estava documentado no documento da GPU. A lógica utilizada buscou tratar o "DATA_A_ptr" e "DATA_B_ptr" como registradores de 32 bits. Como cada bit geralmente possui um significado específico, foi necessário colocá-los na posição correta. Para isso, utilizamos lógica de movimentação de deslocamento com o operador OR. Basicamente, deslocamos os valores para a esquerda e, em seguida, utilizamos a operação OR para combinar esses valores com os bits existentes no registrador.
+
+Foi utilizado também funções de verificações de parâmetros para ajudar a prevenir erros decorrentes de valores fora dos limites esperados. Por exemplo, ao definir cores, coordenadas ou tamanhos, é crucial garantir que esses valores estejam dentro das especificações suportadas pela GPU, ou seja, evitando que essas entradas cheguem à GPU e causem problemas.
+</p>
 </div>
 
 <h4>Historia da GPU </h4>
