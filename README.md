@@ -252,7 +252,7 @@ Após calcular a cena no espaço virtual, a GPU realiza a rasterização, conver
 
 ```
 <h3>Arquivo de dispositivo</h3>
-//explicar sobre a criação do arquivo especial
+O diretório `/dev` serve para facilitar a comunicação entre o modo de usuário e o modo de kernel. Nesse contexto, os arquivos especiais em `/dev` funcionam como pseudo-arquivos que permitem a troca de informações entre esses dois ambientes. Quando uma informação é passada do modo de usuário para o modo de kernel, ela é transferida através desse pseudo-arquivo, por meio de operações de escrita. Ambos os modos implementam funções de manipulação de arquivos, possibilitando que tanto o modo de usuário quanto o modo de kernel possam abrir e escrever nesses arquivos. Assim, de forma resumida, a existência de arquivos especiais no diretório `/dev` é essencial para a comunicação entre o modo de usuário e o modo de kernel.
 
 </div>
 
