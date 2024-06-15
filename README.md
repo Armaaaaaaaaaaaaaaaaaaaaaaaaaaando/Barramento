@@ -429,7 +429,7 @@ Para apagar os arquivos gerados de compilação do módulo, remover o módulo do
   KERNIGHAN, Brian; RITCHIE, Dennis. The C programming language. 2nd ed. Prentice Hall, 1983.
 </p>
 <p>
-  https://www.meupositivo.com.br/doseujeito/tecnologia/o-que-e-placa-de-video-gpu/ (tem que formatar)
+  MEU POSITIVO. O que é placa de vídeo (GPU)? Disponível em: https://www.meupositivo.com.br/doseujeito/tecnologia/o-que-e-placa-de-video-gpu/. Acesso em: 01 jun. 2024.
 </p>
 <p>
   ALVES, Gabriel Sá B.; DIAS, Anfranserai M.; SARINHO, Victor T.. Development of a Sprite-Based Architecture for Creating 2D Games in Reconfigurable Environments Using FPGA Devices. In: TRILHA DE COMPUTAÇÃO – ARTIGOS CURTOS - SIMPÓSIO BRASILEIRO DE JOGOS E ENTRETENIMENTO DIGITAL (SBGAMES), 21. , 2022, Natal/RN. Anais [...]. Porto Alegre: Sociedade Brasileira de Computação, 2022 . p. 283-288.
