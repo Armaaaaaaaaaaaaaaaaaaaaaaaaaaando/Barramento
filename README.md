@@ -385,6 +385,65 @@ escrever_no_arquivo(int fd, uint32_t dataA, uint32_t dataB, char* informacao):
 O projeto atingiu suas metas e proporcionou aprendizados valiosos. O sucesso demonstra a importância do planejamento, comunicação e trabalho em equipe. Estamos orgulhosos do resultado final e agradecemos a todos pelo empenho. Este projeto servirá como um marco significativo em nossa trajetória, destacando nossa capacidade de inovar e entregar soluções de alta qualidade.
 </p>
 
+<h2>
+  Execução do projeto
+</h2>
+<p>
+  Para utilizar o driver e a biblioteca, é imperativo seguir uma série de etapas específicas:
+
+1. **Obtenção do Código-Fonte:** Primeiro, é necessário obter o código-fonte.
+2. **Compilação do Código em C:** Em seguida, compile o código-fonte em C.
+3. **Inserção do Driver no Kernel Linux:** Insira o driver compilado no kernel Linux.
+4. **Criação do Nó de Acesso ao Dispositivo de Caractere:** Crie um nó de acesso ao dispositivo de caractere, garantindo que o número principal (major number) alocado dinamicamente ao driver pelo kernel seja ajustado adequadamente.
+5. **Execução no Dispositivo FPGA:** Execute o driver em um dispositivo FPGA DE1-SoC, equipado com a GPU desenvolvida por Gabriel Sá Barreto Alves.
+
+Adicionalmente, é essencial ajustar o caminho onde os arquivos gerados durante a compilação do módulo do kernel serão armazenados. Esses passos são cruciais para garantir a correta integração e funcionamento do driver e da biblioteca no ambiente especificado.
+<p>
+
+**Passo 1: Clonar o Repositório**
+
+Abra o terminal e execute o seguinte comando para obter o código do repositório:
+
+    git clone https://github.com/Armaaaaaaaaaaaaaaaaaaaaaaaaaaando/Barramento.git
+
+**Passo 1.1: Ajustando major number do nó para dispositivo de caractere**
+
+Caso necessário, na regra "all" do arquivo Makefile, ajuste o major number correspondente ao alocado pelo kernel no momento do carregamento do driver no sistema. O major number corresponde ao "X" mostrado no comando abaixo:
+
+    mknod /dev/driver_dos_amgios c X 0
+  
+**Passo 1.2: Verificar major number**
+
+Para verificar o major number voce precisa após inserir o driver utilizar o comando
+
+
+    cat /proc/devices
+
+**Passo 2: Carregando e configurando driver**
+
+Para compilar, inserir o módulo kernel (driver) e criar um nó para o dispositivo de caractere (arquivo especial), use o comando:
+
+    make
+
+**Passo 3: Compilar o Código em C**
+
+Para obter código teste da biblioteca, compile e execute o código usando o comando:
+
+    make run
+
+**Passo 4: Descarregando driver**
+
+Para apagar os arquivos gerados de compilação do módulo, remover o módulo do kernel e seu nó (arquivo especial), use o comando:
+
+    make clean
+
+</div>
+
+
+
+
+
+
 
 
 
