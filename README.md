@@ -83,12 +83,12 @@ Os arquivos de dispositivos são conhecidos como arquivos especiais. Eles repres
 <h4>Placa de Desenvolvimento DE1-SoC</h4>
 
 <p>
-A DE1-SoC da Altera integra um sistema de processador rígido (HPS) baseado em ARM, composto pelo processador Dual-core ARM Cortex-A9, periféricos e interfaces de memória interligados perfeitamente com a estrutura FPGA através de uma espinha dorsal de interconexão de alta largura de banda. A placa de desenvolvimento DE1-SoC vem com memória DDR3 de alta velocidade, recursos de vídeo e áudio, conectividade Ethernet e muito mais, oferecendo inúmeras aplicações.
+A DE1-SoC da Altera integra um sistema de processador rígido (HPS) baseado em ARM, composto pelo processador Dual-core ARM Cortex-A9, periféricos e interfaces de memória interligados perfeitamente com a estrutura FPGA através de uma espinha dorsal de interconexão de alta largura de banda. A placa de desenvolvimento DE1-SoC vem com memória DDR3 de alta velocidade, recursos de vídeo e áudio, conectividade Ethernet e muito mais, oferecendo inúmeras aplicações.Figura 1.
 </p>
 <p align="center">
   <img src = "https://github.com/Armaaaaaaaaaaaaaaaaaaaaaaaaaaando/Barramento/assets/129075181/a012967b-6624-4b1f-a59d-741b56e773cd" width = "450px"/>
   <p align="center">
-    <strong>Kit de desenvolvimento DE1-SoC</strong> 
+    <strong>Figura 1: Kit de desenvolvimento DE1-SoC</strong> 
   </p>
 </p>
 
@@ -100,20 +100,20 @@ C é uma linguagem de programação de uso geral conhecida por sua concisão, co
 
 <h4>Monitores</h4>
 <p>
-Dois monitores foram utilizados para os testes e desenvolvimento: um monitor do tipo "Cathode Ray Tube" (CRT) e outro do tipo "Liquid Crystal Display" (LCD). Ambos apresentam conexão VGA e foram conectados, de acordo com a disponibilidade do equipamento no laboratório, ao kit de desenvolvimento DE1-SoC para verificar se a interação do hardware com o driver desenvolvido estaria ocorrendo de maneira satisfatória.
+Dois monitores foram utilizados para os testes e desenvolvimento: um monitor do tipo "Cathode Ray Tube" (CRT) e outro do tipo "Liquid Crystal Display" (LCD). Ambos apresentam conexão VGA e foram conectados, de acordo com a disponibilidade do equipamento no laboratório, ao kit de desenvolvimento DE1-SoC para verificar se a interação do hardware com o driver desenvolvido estaria ocorrendo de maneira satisfatória. Figura 2.
 </p>
 
 <p align="center">
   <img src = "https://github.com/Armaaaaaaaaaaaaaaaaaaaaaaaaaaando/Barramento/assets/129075181/a93c589a-7af7-450c-bebc-3afdfcb17657" width = "450px"/>
   <p align="center">
-    <strong>Monitor CRT Dell</strong> 
+    <strong>Figura2: Monitor CRT Dell</strong> 
   </p>
 </p>
 
 <p align="center">
   <img src = "https://github.com/Armaaaaaaaaaaaaaaaaaaaaaaaaaaando/Barramento/assets/129075181/53bacef8-4206-4f67-9757-bb5f96c66239" width = "450px"/>
   <p align="center">
-    <strong>Monitor LCD Philips</strong> 
+    <strong>Figura 3: Monitor LCD Philips</strong> 
   </p>
 </p>
 
@@ -129,12 +129,12 @@ O Compilador GNU, também conhecido como GCC, é uma ferramenta de código abert
 
 
 <h4>Processador gráfico</h4>
-<p>O Processador Gráfico, desenvolvido pelo estudante Gabriel Sá Barreto Alves, é responsável por gerenciar o processo de renderização da imagem e executar um conjunto de instruções que permitem inicialmente inserir sprites, além de modificar o layout do background da tela e renderizar polígonos do tipo quadrado e triângulo. A GPU atua em conjunto com um processador de propósito geral, que para este projeto é o Dual-core ARM Cortex-A9 presente no kit, duas FIFOs (First In, First Out) e uma PLL (Phase Locked Loop), em resumo.</p>
+<p>O Processador Gráfico, desenvolvido pelo estudante Gabriel Sá Barreto Alves, é responsável por gerenciar o processo de renderização da imagem e executar um conjunto de instruções que permitem inicialmente inserir sprites, além de modificar o layout do background da tela e renderizar polígonos do tipo quadrado e triângulo. A GPU atua em conjunto com um processador de propósito geral, que para este projeto é o Dual-core ARM Cortex-A9 presente no kit, duas FIFOs (First In, First Out) e uma PLL (Phase Locked Loop), em resumo.(Figura 4)</p>
 
 <p align="center">
   <img src = "https://github.com/Armaaaaaaaaaaaaaaaaaaaaaaaaaaando/Barramento/assets/129075181/591de9f8-4a37-4d81-8051-57e107099bac" width = "450px"/>
   <p align="center">
-    <strong>Diagrama da estrutura interna do processador gráfico</strong> 
+    <strong>Figura 4: Diagrama da estrutura interna do processador gráfico</strong> 
   </p>
 </p>
 
@@ -213,13 +213,13 @@ Após calcular a cena no espaço virtual, a GPU realiza a rasterização, conver
   Para que fosse possível fazer com que o módulo de kernel desenvolvido fosse capaz de enviar instruções para GPU, foi preciso aplicar alguns conceitos de mapeamento de memória, que serão explicados ao decorrer desta seção.
 </p>
 <p>
-  O processador ARM tem a possibilidade de se comunicar com a FPGA usando tanto a ponte HPS-to-FPGA quanto a ponte Lightweight HPS-to-FPGA. Essas pontes são designadas para áreas específicas na memória do HPS. Quando um componente na FPGA está conectado a uma dessas pontes, os registros que estão mapeados na memória ficam acessíveis para leitura e escrita pelo processador ARM, utilizando os endereços de memória correspondentes às pontes.
+  O processador ARM tem a possibilidade de se comunicar com a FPGA usando tanto a ponte HPS-to-FPGA quanto a ponte Lightweight HPS-to-FPGA. Essas pontes são designadas para áreas específicas na memória do HPS. Quando um componente na FPGA está conectado a uma dessas pontes, os registros que estão mapeados na memória ficam acessíveis para leitura e escrita pelo processador ARM, utilizando os endereços de memória correspondentes às pontes. Figura 5
 </p>
 
 <p align="center">
   <img src = "https://github.com/Armaaaaaaaaaaaaaaaaaaaaaaaaaaando/Barramento/assets/129075181/18ed440c-d28f-4e95-9e0a-e028415bf867" width = "450px"/>
   <p align="center">
-    <strong>Diagrama de blocos das pontes AXI no contexto da estrutura FPGA e da interconexão L3 com a HPS.</strong> 
+    <strong>Figura 5: Diagrama de blocos das pontes AXI no contexto da estrutura FPGA e da interconexão L3 com a HPS.</strong> 
   </p>
 </p>
 
@@ -269,97 +269,78 @@ Foi utilizado também funções de verificações de parâmetros para ajudar a p
 <h3>Funções</h3>
 
 open_device(const char *device_path):
-
     Objetivo: Abrir o arquivo contido na /dev/.
     Funcionalidade: Tenta abrir o dispositivo especificado no modo de leitura e escrita. Retorna o descritor de arquivo (file descriptor) se bem-sucedido e -1 em caso de falha.
 
 write_device(int fd, const char *data):
-
     Objetivo: Escreve os dados por abstração na /dev/.
     Funcionalidade: Tenta escrever os dados fornecidos no dispositivo associado ao descritor de arquivo fornecido. Retorna o número de bytes escritos se bem-sucedido e -1 em caso de falha.
 
 read_device(int fd, char *buffer, size_t size):
-
     Objetivo: Ler do dispositivo.
     Funcionalidade: Tenta ler dados do dispositivo associado ao descritor de arquivo fornecido e os armazena no buffer fornecido. Retorna o número de bytes lidos se bem-sucedido e -1 em caso de falha.
 
 close_device(int fd):
-
     Objetivo: Fechar o dispositivo.
     Funcionalidade: Tenta fechar o dispositivo associado ao descritor de arquivo fornecido.
 
 verificar_cor(int vermelho, int verde, int azul):
-
     Objetivo: Verificar se os valores RGB estão dentro dos limites.
     Funcionalidade: Verifica se os valores de vermelho, verde e azul estão dentro do intervalo permitido (0 a 7).
 
 verificar_cordenadas(int x, int y):
-
     Objetivo: Verificar se as coordenadas estão dentro dos limites da tela.
     Funcionalidade: Verifica se as coordenadas x e y estão dentro dos limites da tela (0 a 639 para x e 0 a 479 para y).
 
 verificar_cordenadas_poligono(int x, int y):
-
     Objetivo: Verificar se as coordenadas estão dentro dos limites do polígono.
     Funcionalidade: Verifica se as coordenadas x e y estão dentro dos limites do polígono (0 a 511 para x e 0 a 479 para y).
 
 verificar_tamanho(int tamanho):
-
     Objetivo: Verificar se o tamanho está dentro dos limites.
     Funcionalidade: Verifica se o tamanho fornecido está dentro do intervalo permitido (0 a 15).
 
 verificar_sprite(int sprite):
-
     Objetivo: Verificar se o número do sprite está dentro dos limites.
     Funcionalidade: Verifica se o número do sprite fornecido está dentro do intervalo permitido (0 a 31).
 
 verificar_registrador(int registrador):
-
     Objetivo: Verificar se o número do registrador está dentro dos limites.
     Funcionalidade: Verifica se o número do registrador fornecido está dentro do intervalo permitido (1 a 31).
 
 verificar_bloco(int bloco):
-
     Objetivo: Verificar se o número do bloco está dentro dos limites.
     Funcionalidade: Verifica se o número do bloco fornecido está dentro do intervalo permitido (0 a 4799).
 
 verificar_endereco(int endereco):
-
     Objetivo: Verificar se o endereço está dentro dos limites.
     Funcionalidade: Verifica se o endereço fornecido está dentro do intervalo permitido (0 a 12799).
 
 editar_sprite(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int endereco, int vermelho, int verde, int azul):
-
     Objetivo: Editar as propriedades de um sprite.
     Funcionalidade: Configura os valores de DATA_A e DATA_B para editar as propriedades do sprite com os valores fornecidos e escreve no dispositivo.
 
 editar_bloco_background(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int x, int y, int vermelho, int verde, int azul):
-
     Objetivo: Editar as propriedades de um bloco de fundo.
     Funcionalidade: Configura os valores de DATA_A e DATA_B para editar as propriedades do bloco de fundo com os valores fornecidos e escreve no dispositivo.
 
 print_quadrado(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int endereco, int x, int y, int tamanho, int vermelho, int verde, int azul):
-
     Objetivo: Desenhar um quadrado na tela.
     Funcionalidade: Configura os valores de DATA_A e DATA_B para desenhar um quadrado na tela com os valores fornecidos e escreve no dispositivo.
 
 print_triangulo(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int endereco, int x, int y, int tamanho, int vermelho, int verde, int azul):
-
     Objetivo: Desenhar um triângulo na tela.
     Funcionalidade: Configura os valores de DATA_A e DATA_B para desenhar um triângulo na tela com os valores fornecidos e escreve no dispositivo.
 
 print_sprite(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, uint32_t ativar_sprite, int x, int y, int sprite, int registrador):
-
     Objetivo: Configurar e imprimir um sprite.
     Funcionalidade: Configura os valores de DATA_A e DATA_B para configurar e imprimir um sprite na tela com os valores fornecidos e escreve no dispositivo.
 
 set_background(int fd, uint32_t DATA_A_ptr, uint32_t DATA_B_ptr, int vermelho, int verde, int azul):
-
     Objetivo: Definir a cor de fundo da tela.
     Funcionalidade: Configura os valores de DATA_A e DATA_B para definir a cor de fundo da tela com os valores fornecidos e escreve no dispositivo.
 
 escrever_no_arquivo(int fd, uint32_t dataA, uint32_t dataB, char* informacao):
-
     Objetivo: Envia a string formatada contendo o data_A e data_B da função para o driver.
     Funcionalidade: Escreve a informação fornecida da instrução no arquivo associado ao descritor de arquivo fornecido.
 </p>
@@ -438,12 +419,6 @@ Para apagar os arquivos gerados de compilação do módulo, remover o módulo do
     make clean
 
 </div>
-
-
-
-
-
-
 
 
 
