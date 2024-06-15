@@ -140,6 +140,39 @@ O Compilador GNU, também conhecido como GCC, é uma ferramenta de código abert
 
 </div>
 
+<h4>Historia da GPU </h4>
+
+<p>
+  A GPU (Unidade de Processamento Gráfico) começou a existir no final das décadas de 1970 e início das décadas de 1980, quando os primeiros computadores pessoais começaram a ser produzidos. Naquela época, os gráficos eram processados principalmente pela CPU (Unidade de Processamento Central), o que tornou muito difícil gerar imagens em tempo real e jogos.
+
+No entanto, com o surgimento de jogos de computador e aplicações gráficas mais complexas, tornou-se evidente que o processamento gráfico requer hardware dedicado. A consequência disso foi a criação dos primeiros chips gráficos especializados, que posteriormente evoluíram para o que hoje chamamos de GPU.
+
+A série de chips gráficos da IBM, lançada em 1987, foi uma das primeiras GPUs notáveis. Em 1991, o S3 Graphics lançou uma das primeiras placas gráficas aceleradoras 2D. Mas a introdução da 3dfx Voodoo em 1996 realmente revolucionou o mercado de placas de vídeo, oferecendo aos jogadores de PC gráficos 3D acelerados por hardware.
+
+No período subsequente, empresas como NVIDIA e ATI – que posteriormente foi adquirida pela AMD – entraram no mercado com suas próprias soluções de GPU, lutando para fornecer o melhor desempenho e qualidade gráfica possível. 
+</p>
+</div>
+
+
+<h4>GPU </h4>
+<p>
+ As GPUs são componentes essenciais em computadores, encarregadas do processamento de imagens. Com hardware especializado, elas lidam tanto com imagens 2D quanto 3D, realizando operações como cálculo de geometria, mapeamento de texturas e transformação de pixels.
+
+No contexto dos jogos e aplicativos, as imagens 3D são geradas através de gráficos vetoriais. A GPU utiliza coordenadas (vértices) para formar polígonos que compõem a cena, aplicando texturas, iluminação e outros detalhes.
+
+Após calcular a cena no espaço virtual, a GPU realiza a rasterização, convertendo-a em dados de pixels. Essas informações são então enviadas aos monitores, exibindo a imagem final. Esse ciclo se repete várias vezes por segundo, permitindo uma visualização fluida e dinâmica.
+
+
+</p>
+</div>
+
+<h4>Barrramento </h4>
+<p>
+ Um barramento, em termos simplificados, é um canal de comunicação que facilita a interação entre o hardware e o software de um sistema computacional. No âmbito deste projeto, o objetivo central é estabelecer um barramento com a finalidade de viabilizar a comunicação entre uma biblioteca em modo de usuário e um driver no modo de kernel. Nesse contexto, a compreensão do conceito de barramento se revelou crucial para o desenvolvimento efetivo deste projeto.
+
+</p>
+</div>
+
 <div id= "driver">
 
 <h2>Desenvolvimento do módulo kernel</h2>
@@ -332,66 +365,9 @@ escrever_no_arquivo(int fd, uint32_t dataA, uint32_t dataB, char* informacao):
 </p>
 </div>
 
-<h4>Historia da GPU </h4>
 
-<p>
-  A GPU (Unidade de Processamento Gráfico) começou a existir no final das décadas de 1970 e início das décadas de 1980, quando os primeiros computadores pessoais começaram a ser produzidos. Naquela época, os gráficos eram processados principalmente pela CPU (Unidade de Processamento Central), o que tornou muito difícil gerar imagens em tempo real e jogos.
-
-No entanto, com o surgimento de jogos de computador e aplicações gráficas mais complexas, tornou-se evidente que o processamento gráfico requer hardware dedicado. A consequência disso foi a criação dos primeiros chips gráficos especializados, que posteriormente evoluíram para o que hoje chamamos de GPU.
-
-A série de chips gráficos da IBM, lançada em 1987, foi uma das primeiras GPUs notáveis. Em 1991, o S3 Graphics lançou uma das primeiras placas gráficas aceleradoras 2D. Mas a introdução da 3dfx Voodoo em 1996 realmente revolucionou o mercado de placas de vídeo, oferecendo aos jogadores de PC gráficos 3D acelerados por hardware.
-
-No período subsequente, empresas como NVIDIA e ATI – que posteriormente foi adquirida pela AMD – entraram no mercado com suas próprias soluções de GPU, lutando para fornecer o melhor desempenho e qualidade gráfica possível. 
-</p>
-</div>
-
-
-<h4>GPU </h4>
-<p>
- As GPUs são componentes essenciais em computadores, encarregadas do processamento de imagens. Com hardware especializado, elas lidam tanto com imagens 2D quanto 3D, realizando operações como cálculo de geometria, mapeamento de texturas e transformação de pixels.
-
-No contexto dos jogos e aplicativos, as imagens 3D são geradas através de gráficos vetoriais. A GPU utiliza coordenadas (vértices) para formar polígonos que compõem a cena, aplicando texturas, iluminação e outros detalhes.
-
-Após calcular a cena no espaço virtual, a GPU realiza a rasterização, convertendo-a em dados de pixels. Essas informações são então enviadas aos monitores, exibindo a imagem final. Esse ciclo se repete várias vezes por segundo, permitindo uma visualização fluida e dinâmica.
-
-
-</p>
-</div>
-
-<h4>Barrramento </h4>
-<p>
- Um barramento, em termos simplificados, é um canal de comunicação que facilita a interação entre o hardware e o software de um sistema computacional. No âmbito deste projeto, o objetivo central é estabelecer um barramento com a finalidade de viabilizar a comunicação entre uma biblioteca em modo de usuário e um driver no modo de kernel. Nesse contexto, a compreensão do conceito de barramento se revelou crucial para o desenvolvimento efetivo deste projeto.
-
-</p>
-</div>
 
 <h2>Instruções da GPU</h2>
-Com o entendimento teorico da GPU, é necessario agora entender como funciona as instruções da mesma e como foram implementadas
-
-<p>
-  Para efetuar a modificação da cor de fundo, é necessário realizar alterações em duas FIFOS, denominadas data A e data B.
-
-O data A é composto por 32 bits, onde as informações cruciais são o registrador, com um tamanho de 5 bits, e o opcode, com um tamanho de 4 bits. Os bits restantes, até completar 32 bits, são preenchidos com zeros à esquerda. O registrador indica onde as alterações estão armazenadas, variando de acordo com a finalidade, como por exemplo, um registrador de sprite. O opcode representa o código de operação da instrução correspondente.
-
-Por outro lado, o conteúdo do data B pode variar conforme o objetivo específico. No caso da modificação da cor de fundo, são necessárias informações mais simplificadas, que serão detalhadas posteriormente. Esta estrutura difere consideravelmente da definição de um polígono, que requer coordenadas, cores, entre outros dados.
-
-Além das informações contidas em data A e data B, há duas variáveis adicionais: uma variável de ativação denominada "start", utilizada para atualizar as informações enviadas ao VGA; e outra variável indicadora chamada "wrfull", que sinaliza quando as FIFOS estão cheias. Neste caso, o valor 1 indica que a FIFO está cheia, enquanto o valor 0 indica que está vazia.
-</p>
-<h4>Instrução de cor de fundo </h4>
-<p>
-  Para efetuar a modificação da tela de fundo do VGA, é necessário enviar instruções tanto para o dataA quanto para o dataB, além de ajustar o parâmetro "start" para desencadear a atualização no VGA.
-
-No contexto do dataA, não é necessário realizar nenhuma alteração, permanecendo a modificação exclusivamente no dataB. Portanto, enviamos um valor de 0 para o dataA.
-
-No que diz respeito ao dataB, a modificação concentra-se na alteração das cores. Como dispomos de apenas 6 bits para representar as cores (2 bits para cada cor: azul, vermelho e verde), devemos manipular e combinar esses bits para obter novas cores. Assim, a instrução a ser enviada possui 6 bits destinados às cores desejadas, complementados com zeros à esquerda para preencher os 32 bits do registro.
-  
-</p>
-
-<h4>Instrução de sprite </h4>
-<p>
-  Para sprite é necessario modificar um pouco a estrutura das instruções dataA e dataB
-</p>
-
 
 
 
