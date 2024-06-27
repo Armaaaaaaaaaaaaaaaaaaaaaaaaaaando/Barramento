@@ -348,7 +348,7 @@ escrever_no_arquivo(int fd, uint32_t dataA, uint32_t dataB, char* informacao):
 
 
 
-<h2>Resultado e conclusão</h2>
+<h2>Resultado</h2>
 <p>
   Após a conclusão de todos os processos de mapeamento de memória, criação do driver e desenvolvimento das funções da biblioteca, obtivemos o resultado esperado. Foi possível criar uma imagem por meio da alteração da cor de fundo, inserção de polígonos e sprites. Dessa forma, a imagem final resultou em uma paisagem de floresta, onde utilizamos a modificação dos blocos para simular a grama verde, polígonos para representar o sol, nuvens e árvores, e sprites para adornar o chão com flores e pedras. Além disso, a imagem incluiu uma nave espacial atirando em outra no céu, conforme ilustrado na Figura 6.
 </p>
@@ -360,11 +360,6 @@ escrever_no_arquivo(int fd, uint32_t dataA, uint32_t dataB, char* informacao):
   </p>
 </p>
 
-<p>
-  A conclusão deste projeto marca o fim de um trabalho detalhado e colaborativo, onde cada etapa foi realizada com dedicação. Enfrentamos desafios técnicos, mas superamos todos e atingimos nossos objetivos. Implementamos todas as funcionalidades planejadas, criando uma imagem detalhada com alteração da cor de fundo, inserção de polígonos e sprites.
-
-O projeto atingiu suas metas e proporcionou aprendizados valiosos. O sucesso demonstra a importância do planejamento, comunicação e trabalho em equipe. Estamos orgulhosos do resultado final e agradecemos a todos pelo empenho. Este projeto servirá como um marco significativo em nossa trajetória, destacando nossa capacidade de inovar e entregar soluções de alta qualidade.
-</p>
 
 <h2>
   Execução do projeto
