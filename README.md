@@ -351,6 +351,12 @@ escrever_no_arquivo(int fd, uint32_t dataA, uint32_t dataB, char* informacao):
 <h2>Resultado</h2>
 <p>
   Após a conclusão de todos os processos de mapeamento de memória, criação do driver e desenvolvimento das funções da biblioteca, obtivemos o resultado esperado. Foi possível criar uma imagem por meio da alteração da cor de fundo, inserção de polígonos e sprites. Dessa forma, a imagem final resultou em uma paisagem de floresta, onde utilizamos a modificação dos blocos para simular a grama verde, polígonos para representar o sol, nuvens e árvores, e sprites para adornar o chão com flores e pedras. Além disso, a imagem incluiu uma nave espacial atirando em outra no céu, conforme ilustrado na Figura 6.
+
+  Para o desenho do background, foi utilizada a função "editar bloco background". Essa função é viabilizada pelo fato de o background ser composto por 80x60 blocos, permitindo que esses blocos sejam pintados com cores específicas. A maneira como todo o background é desenhado envolve a aplicação de uma varredura de matriz na função principal (main), utilizando índices x e y para pintar um conjunto de blocos em cores determinadas.
+
+Os polígonos foram empregados em várias ocasiões, como no sol, nas nuvens e nas árvores. Para essa finalidade, foi implementada a função "print polígono", que recebe parâmetros como tamanho, cor, endereço e posições, permitindo especificar ao processador as instruções adequadas.
+
+Além disso, foram utilizados sprites para adornar o cenário, como flores no chão, pedras e aviões. Para exibir os sprites, empregou-se a função "print sprite", que recebe parâmetros como o bit de ativação do sprite, as coordenadas x e y, o registrador a ser utilizado e a localização do sprite na memória.
 </p>
 
 <p align="center">
