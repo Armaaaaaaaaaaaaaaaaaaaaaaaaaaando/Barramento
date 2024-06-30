@@ -345,12 +345,25 @@ escrever_no_arquivo(int fd, uint32_t dataA, uint32_t dataB, char* informacao):
     Funcionalidade: Escreve a informação fornecida da instrução no arquivo associado ao descritor de arquivo fornecido.
 </p>
 </div>
+<h3>Exemplo de funcionamento</h3>
+<p>
+  Para explicar o fluxo de uma instrução, consideremos o objetivo de alterar a cor de fundo da tela. O processo é direto: na função principal (Main), é emitida a instrução para a função "set_background", que recebe parâmetros como fd, dataA, dataB e rgb (representando cores numeradas como inteiros). Dentro dessa função, são realizadas chamadas para verificar se as cores estão dentro dos limites adequados. Os valores de dataA e dataB são concatenados em uma string, separados por um delimitador 'd'. Em seguida, esses valores concatenados são enviados ao driver, escrevendo em um arquivo especial localizado em /dev. Assim, são transmitidos o fd, os ponteiros para dataA e dataB, além da concatenação mencionada.
 
+Na biblioteca, concluímos a etapa de envio das informações ao driver. No driver, o procedimento consiste em receber essa instrução da biblioteca e processá-la na GPU. Antes disso, uma função separa_inteiros é chamada para dividir e converter as informações concatenadas de dataA e dataB em números inteiros. Essa abordagem foi necessária porque os arquivos apenas lidam com informações do tipo char, enquanto a GPU requer instruções no formato inteiro. Portanto, optamos por combinar e escrever essas informações no arquivo e, ao ler do arquivo, separar e converter essas informações para inteiro, permitindo que a GPU compreenda as instruções adequadamente.
+
+Esse exemplo ilustra o funcionamento do projeto, aplicável igualmente às outras funções como editar sprite, editar polígono, printar sprite, printar polígono, entre outras. Embora haja variações nos parâmetros, a sequência de operações permanece consistente. É importante destacar que algumas funções incluem chamadas adicionais para verificar limites de registradores enviados, coordenadas com relação à tela ou a origem apropriada de sprites.
+</p>
+<p align="center">
+  <img src = "https://github.com/Armaaaaaaaaaaaaaaaaaaaaaaaaaaando/Barramento/assets/111616936/ba30d49a-1410-48f1-8353-777be11f4570" width = "450px"/>
+  <p align="center">
+    <strong>Figura 6: Fluxograma do exemplo</strong> 
+  </p>
+</p>
 
 
 <h2>Resultado</h2>
 <p>
-  Após a conclusão de todos os processos de mapeamento de memória, criação do driver e desenvolvimento das funções da biblioteca, obtivemos o resultado esperado. Foi possível criar uma imagem por meio da alteração da cor de fundo, inserção de polígonos e sprites. Dessa forma, a imagem final resultou em uma paisagem de floresta, onde utilizamos a modificação dos blocos para simular a grama verde, polígonos para representar o sol, nuvens e árvores, e sprites para adornar o chão com flores e pedras. Além disso, a imagem incluiu uma nave espacial atirando em outra no céu, conforme ilustrado na Figura 6.
+  Após a conclusão de todos os processos de mapeamento de memória, criação do driver e desenvolvimento das funções da biblioteca, obtivemos o resultado esperado. Foi possível criar uma imagem por meio da alteração da cor de fundo, inserção de polígonos e sprites. Dessa forma, a imagem final resultou em uma paisagem de floresta, onde utilizamos a modificação dos blocos para simular a grama verde, polígonos para representar o sol, nuvens e árvores, e sprites para adornar o chão com flores e pedras. Além disso, a imagem incluiu uma nave espacial atirando em outra no céu, conforme ilustrado na Figura 7.
 
   Para o desenho do background, foi utilizada a função "editar bloco background". Essa função é viabilizada pelo fato de o background ser composto por 80x60 blocos, permitindo que esses blocos sejam pintados com cores específicas. A maneira como todo o background é desenhado envolve a aplicação de uma varredura de matriz na função principal (main), utilizando índices x e y para pintar um conjunto de blocos em cores determinadas.
 
@@ -362,7 +375,7 @@ Além disso, foram utilizados sprites para adornar o cenário, como flores no ch
 <p align="center">
   <img src = "https://github.com/Armaaaaaaaaaaaaaaaaaaaaaaaaaaando/Barramento/assets/111616936/5016e9fe-7bfc-4adc-ac72-d1fc1ec1b923" width = "450px"/>
   <p align="center">
-    <strong>Figura 6.</strong> 
+    <strong>Figura 7.</strong> 
   </p>
 </p>
 
